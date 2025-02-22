@@ -19,3 +19,5 @@ example_response_d = "This is just an example to inspire you: How about 'Mediter
 end_text = "Remember, staying hydrated is essential for a fantastic day. Keep a glass of water nearby to stay refreshed. Get ready to savor this culinary experience, and may your taste buds dance with joy. Enjoy your meals and have a fantastic day!"
 
 negative_prompt = "Please exclude cooking instructions and limit your response to 100-150 words. I'm interested in the meal name, its ingredients, a brief description, and some nutritional insights. Let your culinary expertise shine!"
+
+example_response = "This is a sample response from the assistant, showing how to structure the meal plan."

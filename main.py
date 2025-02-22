@@ -22,7 +22,12 @@ food_item_morning = {
         "apples": 52,
         "oranges": 62,
         "grapefruit": 52,
-        "melon_slices": 30
+        "melon_slices": 30,
+        "apple": 95,  # Added apple
+    "granny_smith": 95,  # Another possible apple label
+    'red_delicious': 95,  # Another variation
+    'green_apple': 95,  # Another variation
+    'golden_delicious': 95, 
     },
     "vegetables": {
         "spinach": 7,
