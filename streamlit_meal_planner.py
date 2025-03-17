@@ -21,19 +21,189 @@ st.set_page_config(
 # ✅ Apply Custom Styles
 st.markdown("""
     <style>
-        .stApp { background: linear-gradient(to right, #ff9966, #ff5e62); }
-        .block-container { max-width: 800px; margin: auto; padding: 2rem; }
-        .stCard { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 15px;
-                  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); backdrop-filter: blur(10px); }
-        .stButton button { background-color: #ff4b4b !important; color: white !important;
-                           border-radius: 10px; font-size: 18px; padding: 12px 24px; transition: 0.3s ease; }
-        .stButton button:hover { background-color: #cc0000 !important; transform: scale(1.05); }
-        .stRadio div { display: flex; justify-content: center; gap: 15px; }
-        .stTextInput input, .stNumberInput input, .stSelectbox select { border-radius: 8px !important;
-                                                                        padding: 8px !important; font-size: 16px !important; }
-        .stImage img { max-width: 100%; border-radius: 12px; box-shadow: 0px 3px 10px rgba(0,0,0,0.2); }
+        /* 🌈 Soft Gradient Background */
+        .stApp {
+            background: linear-gradient(to right, #8ddaf0, #f8f6ff, #5fe3f5);
+            color: #333;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        /* 📦 Container Styling */
+        .block-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .stSucc {
+            background-color: #a0fad6;
+            color:#333;
+            padding: 15px;
+            font-size:18px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .stWarn {
+            background-color: #f0f5b3;
+            color:#333;
+            padding: 15px;
+            font-size:18px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+
+        /* ✨ Glassmorphism Cards */
+        .stCard {
+            background: #c3eefa;
+            color:white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transition: 0.3s ease;
+        }
+
+        .stCard:hover {
+            transform: scale(1.03);
+            box-shadow: 0px 6px 20px #8ddaf0;
+        }
+
+        /* 🎨 Buttons - Soft Pastel Effect */
+        .stButton button {
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4) !important;
+            color: white !important;
+            border-radius: 10px;
+            font-size: 18px;
+            padding: 12px 24px;
+            border: none;
+            box-shadow: 0px 4px 10px rgba(255, 160, 160, 0.5);
+            transition: 0.3s ease;
+        }
+
+        .stButton button:hover {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3) !important;
+            transform: scale(1.05);
+            box-shadow: 0px 6px 15px rgba(255, 120, 150, 0.6);
+        }
+
+        /* 📌 Sidebar - Soft Blurry Card */
+      /* 🌈 Sidebar Background - Soft Gradient */
+        .css-1d391kg {
+            background: white;
+            color: white;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid rgba(200, 200, 200, 0.3);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 🎯 Sidebar Title Styling */
+        .css-1v0mbdj {
+            color: white !important;
+            font-size: 22px !important;
+            font-weight: bold !important;
+            text-align: center !important;
+        }
+
+        /* 🔘 Sidebar Radio Buttons - Beautiful Custom Look */
+        .stRadio label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            color: black;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            box-shadow: 0px 2px 8px rgba(255, 150, 150, 0.3);
+            transition: all 0.3s ease;
+        }
+        .stAppHeader{
+        background:#f0f4fa;
+        padding-bottom: 15px;
+
+        }
+
+        /* 🖱️ Hover Effect for Sidebar Buttons */
+        .stRadio label:hover {
+            background: #5fe3f5;
+            transform: scale(1.05);
+            box-shadow: 0px 4px 12px rgba(255, 100, 100, 0.4);
+        }
+
+
+        /* 🔘 Active Selection Highlight */
+        .stRadio div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) {
+            background: #b3e3fc !important;
+            color: black !important;
+            font-weight: bold !important;
+            transform: scale(1.08);
+            box-shadow: 0px 5px 15px rgba(255, 80, 120, 0.5);
+        }
+        /* 🔤 Input Fields with Soft Shadows */
+        .stTextInput input, .stNumberInput input, .stSelectbox select {
+            border-radius: 10px !important;
+            padding: 12px !important;
+            font-size: 16px !important;
+            background: rgba(255, 255, 255, 0.9);
+            color: black;
+            border: 1px solid rgba(200, 200, 200, 0.5);
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
+        }
+
+        /* 📸 Image Styling */
+        .stImage img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0px 3px 12px rgba(0,0,0,0.1);
+        }
+
+        /* 🔽 Dropdown Menu Styling */
+        .stSelectbox select {
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #444;
+        }
+
+        /* ⚡ Footer - Elegant Soft Blur */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.1);
+        }
+        .stTextInput label,.stNumberInput label{
+        color : black;
+        font-size: 40px;
+        }
+        /* 📌 Styling for st.expander */
+        .stExpander {
+            font-size: 22px !important; /* Increase font size */
+            color: black !important; /* Change text color to black */
+            font-weight: bold !important;
+        }
+        .stTxt{
+        color:black
+        }
+
     </style>
 """, unsafe_allow_html=True)
+
+
 
 # ✅ Title & Description
 st.markdown('<div class="stCard">', unsafe_allow_html=True)
@@ -75,7 +245,7 @@ if option == "🏠 Home":
 # ✅ Find Calories in Meal Page
 elif option == "🔍 Find Calories in Meal":
     st.markdown('<div class="stCard">', unsafe_allow_html=True)
-    st.subheader("📸 Upload Your Meal Image")
+    
     st.markdown("</div>", unsafe_allow_html=True)
 
     # 🔷 User Details Section
@@ -89,7 +259,7 @@ elif option == "🔍 Find Calories in Meal":
             weight = st.number_input("Weight (kg)", min_value=1.0, max_value=200.0, step=0.1)
             height = st.number_input("Height (cm)", min_value=50.0, max_value=250.0, step=0.1)
             activity_level = st.selectbox("Activity Level", ["Sedentary", "Light", "Moderate", "Active"])
-
+ 
     # ✅ Function to Calculate Daily Calorie Intake
     def calculate_calories(age, weight, height, gender, activity_level):
         if gender == "Male":
@@ -110,9 +280,11 @@ elif option == "🔍 Find Calories in Meal":
         st.session_state.calories = daily_calories 
 
     # 🔷 Meal Image Upload Section
-    uploaded_image = st.file_uploader("Upload your meal image...", type=["jpg", "png", "jpeg"])
+    st.subheader("📸 Upload Your Meal Image")
+    uploaded_image = st.file_uploader("", type=["jpg", "png", "jpeg"])
 
     if uploaded_image:
+        
         st.image(uploaded_image, caption="Uploaded Meal Image", use_column_width=True)
 
         calories_dict = {
@@ -193,7 +365,10 @@ elif option == "🔍 Find Calories in Meal":
             st.session_state.predicted_cnt = sum(calories_dict.get(label.lower(), 0) for _, label, _ in predictions)
             st.markdown("</div>", unsafe_allow_html=True)
         else:
-            st.warning("⚠ No predictions available. Try a different image.")
+             st.markdown(""" <div class="stSucc"> 
+        ⚠ No predictions available. Try a different image.
+        </div> """,unsafe_allow_html=True)
+            
         
 elif option == "🥗 Find Your Diet Plan":
     calorie_difference = st.session_state.calories - st.session_state.predicted_cnt
@@ -240,7 +415,10 @@ elif option == "🥗 Find Your Diet Plan":
         st.info("✅ **Tip:** Increase physical activity to burn excess calories.")
 
     else:
-        st.success("🎯 Perfect! Your meal intake is well-balanced with your daily needs.")
+        st.markdown(""" <div class="stSucc"> 
+        🎯 Perfect! Your meal intake is well-balanced with your daily needs.
+        </div> """,unsafe_allow_html=True)
+       
 # ✅ Footer
 st.markdown("---")
 st.markdown("💡 **Built with AI & Streamlit | Powered by Deep Learning**")
