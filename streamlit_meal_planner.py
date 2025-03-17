@@ -285,7 +285,7 @@ elif option == "🔍 Find Calories in Meal":
 
     if uploaded_image:
         
-        st.image(uploaded_image, caption="Uploaded Meal Image", use_column_width=True)
+        st.image(uploaded_image, caption="Uploaded Meal Image", use_container_width =True)
 
         calories_dict = {
     # Fast Food
@@ -326,7 +326,124 @@ elif option == "🔍 Find Calories in Meal":
     # Snacks & Desserts
     'dark_chocolate': 604, 'popcorn': 387, 'peanut_butter': 588, 'granola_bar': 250, 'cookies': 502, 'cake': 350, 
     'candy_bar': 541, 'honey': 304
+    }
+
+        protein_dict = {
+    # Fast Food
+    'pizza': 12, 'burger': 17, 'salad': 3, 'hotdog': 10, 'fries': 3.4,  
+
+    # Fruits
+    'banana': 1.3, 'lemon': 1.1, 'bell_pepper': 1, 'apple': 0.5, 'orange': 1.2, 'grapes': 0.7, 'watermelon': 0.6, 
+    'strawberry': 0.8, 'blueberry': 0.7, 'pineapple': 0.5, 'mango': 0.8, 'kiwi': 1.1, 'pomegranate': 1.7, 'peach': 0.9, 
+    'plum': 0.7, 'pear': 0.4, 'cherry': 1.1, 'fig': 0.8, 'apricot': 1.4, 'coconut': 3.3, 'blackberry': 2, 'raspberry': 1.5, 
+    'guava': 2.6, 'papaya': 0.5, 'cranberry': 0.4, 'dragonfruit': 1.2, 'lychee': 0.8, 'jackfruit': 1.7, 'dates': 2.5,
+
+    # Vegetables
+    'carrot': 0.9, 'broccoli': 4.3, 'spinach': 2.9, 'potato': 2, 'sweet_potato': 1.6, 'cabbage': 1.3, 'lettuce': 1.4, 
+    'cucumber': 0.7, 'tomato': 0.9, 'onion': 1.1, 'garlic': 6.4, 'ginger': 1.8, 'beetroot': 1.6, 'cauliflower': 1.9, 
+    'zucchini': 1.2, 'brussels_sprout': 3.4, 'pumpkin': 1, 'radish': 0.7, 'asparagus': 2.2, 'okra': 1.9, 'artichoke': 3.3, 
+    'mushroom': 3.1, 'avocado': 2, 'corn': 3.4, 'celery': 0.7, 'kale': 4.3, 'bok_choy': 1.5, 'turnip': 1, 'parsnip': 1.2, 
+    'swiss_chard': 1.8, 'arugula': 2.6, 'seaweed': 5, 'butternut_squash': 1, 'spaghetti_squash': 0.6,
+
+    # Nuts & Legumes
+    'almond': 21, 'walnut': 15, 'cashew': 18, 'peanut': 25, 'hazelnut': 15, 'pistachio': 20, 'chickpeas': 9, 
+    'lentils': 9, 'kidney_beans': 9, 'black_beans': 9, 'soybeans': 36, 'green_peas': 5.4, 'sunflower_seeds': 20, 
+    'flaxseeds': 18, 'chia_seeds': 17,
+
+    # Grains
+    'white_rice': 2.7, 'brown_rice': 2.6, 'quinoa': 4.1, 'oats': 13, 'whole_wheat_bread': 13, 'white_bread': 8.5, 
+    'pasta': 5.8, 'barley': 12, 'millet': 11, 'cornmeal': 7.5, 'buckwheat': 13,
+
+    # Dairy
+    'milk': 3.4, 'cheese': 25, 'yogurt': 10, 'butter': 0.9, 'cream': 2.8, 'cottage_cheese': 11, 'ice_cream': 4,
+
+    # Meat & Seafood
+    'chicken_breast': 31, 'chicken_thigh': 24, 'beef': 26, 'pork': 25, 'salmon': 22, 'tuna': 29, 'shrimp': 20, 
+    'egg': 13, 'duck': 27, 'lamb': 25, 'turkey': 29,
+
+    # Beverages
+    'coffee': 0.1, 'tea': 0, 'orange_juice': 0.7, 'apple_juice': 0.1, 'soda': 0,
+
+    # Snacks & Desserts
+    'dark_chocolate': 7.8, 'popcorn': 12, 'peanut_butter': 25, 'granola_bar': 7, 'cookies': 6, 'cake': 5, 
+    'candy_bar': 5, 'honey': 0.3
+    }
+
+        carbs_dict = {
+    # Fast Food
+    'pizza': 36, 'burger': 29, 'salad': 7, 'hotdog': 23, 'fries': 30, 
+
+    # Fruits
+    'banana': 27, 'lemon': 9.3, 'bell_pepper': 6, 'apple': 25, 'orange': 15.5, 'grapes': 18, 'watermelon': 8, 
+    'strawberry': 7.7, 'blueberry': 14.5, 'pineapple': 13, 'mango': 25, 'kiwi': 10, 'pomegranate': 19, 'peach': 14, 
+    'plum': 11, 'pear': 27, 'cherry': 16, 'fig': 19, 'apricot': 11, 'coconut': 15, 'blackberry': 10, 'raspberry': 12, 
+    'guava': 14, 'papaya': 11, 'cranberry': 12, 'dragonfruit': 13, 'lychee': 16, 'jackfruit': 24, 'dates': 75,
+
+    # Vegetables
+    'carrot': 10, 'broccoli': 11, 'spinach': 3.6, 'potato': 17, 'sweet_potato': 20, 'cabbage': 6, 'lettuce': 2.9, 
+    'cucumber': 3.6, 'tomato': 4.7, 'onion': 9, 'garlic': 33, 'ginger': 18, 'beetroot': 9, 'cauliflower': 5, 
+    'zucchini': 3, 'brussels_sprout': 9, 'pumpkin': 6.5, 'radish': 3, 'asparagus': 3.9, 'okra': 7.5, 'artichoke': 11, 
+    'mushroom': 3.3, 'avocado': 9, 'corn': 21, 'celery': 3, 'kale': 10, 'bok_choy': 2.2, 'turnip': 6, 'parsnip': 18, 
+    'swiss_chard': 3, 'arugula': 3.7, 'seaweed': 10, 'butternut_squash': 11, 'spaghetti_squash': 10,
+
+    # Nuts & Legumes
+    'almond': 21, 'walnut': 14, 'cashew': 30, 'peanut': 16, 'hazelnut': 17, 'pistachio': 28, 'chickpeas': 27, 
+    'lentils': 20, 'kidney_beans': 22, 'black_beans': 23, 'soybeans': 30, 'green_peas': 14, 'sunflower_seeds': 20, 
+    'flaxseeds': 29, 'chia_seeds': 42,
+
+    # Grains
+    'white_rice': 28, 'brown_rice': 23, 'quinoa': 21, 'oats': 67, 'whole_wheat_bread': 41, 'white_bread': 49, 
+    'pasta': 31, 'barley': 73, 'millet': 72, 'cornmeal': 79, 'buckwheat': 71,
+
+    # Dairy, Meat, Beverages, Snacks omitted for brevity...
 }
+
+
+        fat_dict = {
+    # Fast Food
+    'pizza': 10, 'burger': 19, 'salad': 7, 'hotdog': 13, 'fries': 10,  
+
+    # Fruits
+    'banana': 0.3, 'lemon': 0.3, 'bell_pepper': 0.3, 'apple': 0.3, 'orange': 0.2, 'grapes': 0.2, 'watermelon': 0.2, 
+    'strawberry': 0.3, 'blueberry': 0.3, 'pineapple': 0.1, 'mango': 0.6, 'kiwi': 0.4, 'pomegranate': 1.2, 'peach': 0.3, 
+    'plum': 0.3, 'pear': 0.2, 'cherry': 0.2, 'fig': 0.3, 'apricot': 0.4, 'coconut': 33, 'blackberry': 0.5, 'raspberry': 0.7, 
+    'guava': 0.9, 'papaya': 0.3, 'cranberry': 0.1, 'dragonfruit': 0.1, 'lychee': 0.4, 'jackfruit': 0.6, 'dates': 0.2,
+
+    # Vegetables
+    'carrot': 0.2, 'broccoli': 0.4, 'spinach': 0.4, 'potato': 0.1, 'sweet_potato': 0.1, 'cabbage': 0.1, 'lettuce': 0.2, 
+    'cucumber': 0.1, 'tomato': 0.2, 'onion': 0.1, 'garlic': 0.5, 'ginger': 0.8, 'beetroot': 0.1, 'cauliflower': 0.3, 
+    'zucchini': 0.3, 'brussels_sprout': 0.3, 'pumpkin': 0.1, 'radish': 0.1, 'asparagus': 0.2, 'okra': 0.2, 'artichoke': 0.3, 
+    'mushroom': 0.3, 'avocado': 21, 'corn': 1.2, 'celery': 0.1, 'kale': 0.7, 'bok_choy': 0.2, 'turnip': 0.1, 'parsnip': 0.3, 
+    'swiss_chard': 0.2, 'arugula': 0.7, 'seaweed': 0.6, 'butternut_squash': 0.1, 'spaghetti_squash': 0.3,
+
+    # Nuts & Legumes
+    'almond': 50, 'walnut': 65, 'cashew': 44, 'peanut': 49, 'hazelnut': 61, 'pistachio': 45, 'chickpeas': 2.6, 
+    'lentils': 0.4, 'kidney_beans': 0.5, 'black_beans': 0.5, 'soybeans': 20, 'green_peas': 0.4, 'sunflower_seeds': 51, 
+    'flaxseeds': 42, 'chia_seeds': 31,
+
+    # Grains
+    'white_rice': 0.3, 'brown_rice': 0.9, 'quinoa': 1.9, 'oats': 6.9, 'whole_wheat_bread': 4.2, 'white_bread': 3.2, 
+    'pasta': 1.1, 'barley': 2.3, 'millet': 4.2, 'cornmeal': 3.9, 'buckwheat': 3.4,
+
+    # Dairy
+    'milk': 1, 'cheese': 33, 'yogurt': 3.3, 'butter': 81, 'cream': 36, 'cottage_cheese': 4.3, 'ice_cream': 11,
+
+    # Meat & Seafood
+    'chicken_breast': 3.6, 'chicken_thigh': 8, 'beef': 19, 'pork': 21, 'salmon': 13, 'tuna': 1, 'shrimp': 1.7, 
+    'egg': 11, 'duck': 28, 'lamb': 21, 'turkey': 7.4,
+
+    # Beverages
+    'coffee': 0.2, 'tea': 0, 'orange_juice': 0.2, 'apple_juice': 0.1, 'soda': 0,
+
+    # Snacks & Desserts
+    'dark_chocolate': 43, 'popcorn': 4.5, 'peanut_butter': 50, 'granola_bar': 11, 'cookies': 24, 'cake': 15, 
+    'candy_bar': 30, 'honey': 0
+}
+
+
+
+
+
 
 
         # Load Model
@@ -361,7 +478,9 @@ elif option == "🔍 Find Calories in Meal":
             st.subheader("🔍 Meal Analysis Results")
             for i, (imagenet_id, label, score) in enumerate(predictions):
                 calorie_value = calories_dict.get(label.lower(), "Not available")
-                st.write(f"**Prediction {i + 1}:** {label} (🔥 Confidence: {score:.2%}), **Calories:** {calorie_value}")
+                protein_value = protein_dict.get(label.lower(), "Not available")
+                fat_value = fat_dict.get(label.lower(), "Not available")
+                st.write(f"**Prediction {i + 1}:** {label} (🔥 Confidence: {score:.2%}),  **Protein:** {protein_value} grams,  **Calories:** {calorie_value} kcal,  **Fats:** {fat_value} grams")
             st.session_state.predicted_cnt = sum(calories_dict.get(label.lower(), 0) for _, label, _ in predictions)
             st.markdown("</div>", unsafe_allow_html=True)
         else:
