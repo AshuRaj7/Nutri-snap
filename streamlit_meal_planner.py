@@ -283,6 +283,8 @@ elif option == "🔍 Find Calories in Meal":
     st.subheader("📸 Upload Your Meal Image")
     uploaded_image = st.file_uploader("", type=["jpg", "png", "jpeg"])
 
+    qty = st.number_input("Quantity", min_value=1, max_value=120, step=1)
+    
     if uploaded_image:
         
         st.image(uploaded_image, caption="Uploaded Meal Image", use_container_width =True)
@@ -325,8 +327,51 @@ elif option == "🔍 Find Calories in Meal":
 
     # Snacks & Desserts
     'dark_chocolate': 604, 'popcorn': 387, 'peanut_butter': 588, 'granola_bar': 250, 'cookies': 502, 'cake': 350, 
-    'candy_bar': 541, 'honey': 304
+    'candy_bar': 541, 'honey': 304, 'mixing_bowl':1024, 
     }
+        
+        sugar_dict = {
+    # Fast Food
+    'pizza': 3.6, 'burger': 4.2, 'salad': 2.1, 'hotdog': 1.5, 'fries': 0.3,
+
+    # Fruits
+    'banana': 12.2, 'lemon': 2.5, 'bell_pepper': 2.4, 'apple': 10.4, 'orange': 8.2, 'grapes': 15.5, 'watermelon': 6.2, 
+    'strawberry': 4.9, 'blueberry': 9.7, 'pineapple': 9.9, 'mango': 13.7, 'kiwi': 8.9, 'pomegranate': 13.7, 'peach': 8.4, 
+    'plum': 9.9, 'pear': 9.8, 'cherry': 12.8, 'fig': 16.3, 'apricot': 3.9, 'coconut': 6.2, 'blackberry': 4.9, 'raspberry': 4.4, 
+    'guava': 5.4, 'papaya': 5.9, 'cranberry': 4.0, 'dragonfruit': 8.0, 'lychee': 15.2, 'jackfruit': 19.1, 'dates': 66.5,
+
+    # Vegetables
+    'carrot': 4.7, 'broccoli': 1.7, 'spinach': 0.4, 'potato': 0.9, 'sweet_potato': 4.2, 'cabbage': 3.2, 'lettuce': 0.8, 
+    'cucumber': 1.7, 'tomato': 2.6, 'onion': 4.2, 'garlic': 1.0, 'ginger': 1.7, 'beetroot': 6.8, 'cauliflower': 1.9, 
+    'zucchini': 2.0, 'brussels_sprout': 2.2, 'pumpkin': 2.8, 'radish': 1.9, 'asparagus': 1.9, 'okra': 1.5, 'artichoke': 0.9, 
+    'mushroom': 1.0, 'avocado': 0.2, 'corn': 6.3, 'celery': 1.4, 'kale': 1.6, 'bok_choy': 1.2, 'turnip': 3.8, 'parsnip': 4.8, 
+    'swiss_chard': 1.1, 'arugula': 2.1, 'seaweed': 0.9, 'butternut_squash': 4.5, 'spaghetti_squash': 2.8,
+
+    # Nuts & Legumes
+    'almond': 4.4, 'walnut': 2.6, 'cashew': 5.9, 'peanut': 4.2, 'hazelnut': 4.3, 'pistachio': 7.7, 'chickpeas': 10.7, 
+    'lentils': 2.0, 'kidney_beans': 0.3, 'black_beans': 0.5, 'soybeans': 7.5, 'green_peas': 5.7, 'sunflower_seeds': 2.6, 
+    'flaxseeds': 1.5, 'chia_seeds': 0.8,
+
+    # Grains
+    'white_rice': 0.2, 'brown_rice': 0.7, 'quinoa': 0.9, 'oats': 0.5, 'whole_wheat_bread': 3.8, 'white_bread': 5.0, 
+    'pasta': 0.9, 'barley': 0.8, 'millet': 1.3, 'cornmeal': 1.5, 'buckwheat': 1.0,
+
+    # Dairy
+    'milk': 5.0, 'cheese': 1.3, 'yogurt': 4.7, 'butter': 0.1, 'cream': 3.0, 'cottage_cheese': 2.7, 'ice_cream': 21.2,
+
+    # Meat & Seafood
+    'chicken_breast': 0, 'chicken_thigh': 0, 'beef': 0, 'pork': 0, 'salmon': 0, 'tuna': 0, 'shrimp': 0, 
+    'egg': 0.3, 'duck': 0, 'lamb': 0, 'turkey': 0,
+
+    # Beverages
+    'coffee': 0, 'tea': 0, 'orange_juice': 8.4, 'apple_juice': 9.6, 'soda': 39,
+
+    # Snacks & Desserts
+    'dark_chocolate': 24.0, 'popcorn': 0.9, 'peanut_butter': 9.2, 'granola_bar': 18.0, 'cookies': 38.2, 'cake': 38.0, 
+    'candy_bar': 48.5, 'honey': 82.4
+}
+
+
 
         protein_dict = {
     # Fast Food
@@ -359,7 +404,7 @@ elif option == "🔍 Find Calories in Meal":
 
     # Meat & Seafood
     'chicken_breast': 31, 'chicken_thigh': 24, 'beef': 26, 'pork': 25, 'salmon': 22, 'tuna': 29, 'shrimp': 20, 
-    'egg': 13, 'duck': 27, 'lamb': 25, 'turkey': 29,
+    'egg': 13, 'duck': 27, 'lamb': 25, 'turkey': 29,'mixing_bowl':102,
 
     # Beverages
     'coffee': 0.1, 'tea': 0, 'orange_juice': 0.7, 'apple_juice': 0.1, 'soda': 0,
@@ -393,7 +438,7 @@ elif option == "🔍 Find Calories in Meal":
 
     # Grains
     'white_rice': 28, 'brown_rice': 23, 'quinoa': 21, 'oats': 67, 'whole_wheat_bread': 41, 'white_bread': 49, 
-    'pasta': 31, 'barley': 73, 'millet': 72, 'cornmeal': 79, 'buckwheat': 71,
+    'pasta': 31, 'barley': 73, 'millet': 72, 'cornmeal': 79, 'buckwheat': 71,'mixing_bowl':73,
 
     # Dairy, Meat, Beverages, Snacks omitted for brevity...
 }
@@ -430,7 +475,7 @@ elif option == "🔍 Find Calories in Meal":
 
     # Meat & Seafood
     'chicken_breast': 3.6, 'chicken_thigh': 8, 'beef': 19, 'pork': 21, 'salmon': 13, 'tuna': 1, 'shrimp': 1.7, 
-    'egg': 11, 'duck': 28, 'lamb': 21, 'turkey': 7.4,
+    'egg': 11, 'duck': 28, 'lamb': 21, 'turkey': 7.4,'mixing_bowl':24,
 
     # Beverages
     'coffee': 0.2, 'tea': 0, 'orange_juice': 0.2, 'apple_juice': 0.1, 'soda': 0,
@@ -440,11 +485,8 @@ elif option == "🔍 Find Calories in Meal":
     'candy_bar': 30, 'honey': 0
 }
 
-
-
-
-
-
+    
+        
 
         # Load Model
         @st.cache_resource
@@ -477,18 +519,116 @@ elif option == "🔍 Find Calories in Meal":
             st.markdown('<div class="stCard">', unsafe_allow_html=True)
             st.subheader("🔍 Meal Analysis Results")
             for i, (imagenet_id, label, score) in enumerate(predictions):
+                global calorie_value
                 calorie_value = calories_dict.get(label.lower(), "Not available")
+                if calorie_value!="Not available":
+                    calorie_value*=qty
+                global protein_value
                 protein_value = protein_dict.get(label.lower(), "Not available")
+                if protein_value!="Not available":
+                    protein_value*=qty
+                global fat_value 
                 fat_value = fat_dict.get(label.lower(), "Not available")
-                st.write(f"**Prediction {i + 1}:** {label} (🔥 Confidence: {score:.2%}),  **Protein:** {protein_value} grams,  **Calories:** {calorie_value} kcal,  **Fats:** {fat_value} grams")
+                if fat_value!="Not available":
+                    fat_value*=qty
+                global sugar_value 
+                sugar_value =sugar_dict.get(label.lower(), "Not available")
+                if sugar_value!="Not available":
+                    sugar_value*=qty
+                st.write(f"**Prediction {i + 1}:** {label} (🔥 Confidence: {score:.2%}),  **Protein:** {protein_value} grams,  **Calories:** {calorie_value} kcal,  **Fats:** {fat_value} grams, **Sugar:** {fat_value} grams")
             st.session_state.predicted_cnt = sum(calories_dict.get(label.lower(), 0) for _, label, _ in predictions)
             st.markdown("</div>", unsafe_allow_html=True)
         else:
              st.markdown(""" <div class="stSucc"> 
         ⚠ No predictions available. Try a different image.
         </div> """,unsafe_allow_html=True)
-            
+
+    st.subheader(" Select below if Any of the Problem You Are Having")
+    global BodyState
+    BodyState = st.selectbox("", ["Select","diabetes", "heart_disease", "obesity", "hypertension (high blood pressure)","PCOS (Polycystic Ovary Syndrome)","thyroid disorders (hypothyroidism)","liver disease (fatty liver)","kidney disease","anemia","osteoporosis","cancer patients (during treatment)"] )
+    print(BodyState)
+    if BodyState!='Select' and uploaded_image:
+        max_intake = {
+    "diabetes": {
+        "max_calories": 1800,  # Typically 1500-2000 kcal/day
+        "max_fat": 50,  # Keep saturated fat low (<10% of total calories)
+        "max_sugar": 25  # WHO recommends <25g added sugar
+    },
+    "heart_disease": {
+        "max_calories": 2000,  # General healthy diet
+        "max_fat": 60,  # 20-35% of total calories from fat
+        "max_sugar": 25  # Limit added sugars to prevent cholesterol buildup
+    },
+    "obesity": {
+        "max_calories": 1200,  # Caloric deficit diet
+        "max_fat": 40,  # Reduced fat intake
+        "max_sugar": 15  # Minimal added sugar
+    },
+    "hypertension (high blood pressure)": {
+        "max_calories": 2000,  
+        "max_fat": 55,  # Focus on healthy fats (avocado, nuts)
+        "max_sugar": 25  # Low added sugar to maintain blood pressure
+    },
+    "PCOS (Polycystic Ovary Syndrome)": {
+        "max_calories": 1800,  
+        "max_fat": 50,  
+        "max_sugar": 20  # Low sugar to manage insulin resistance
+    },
+    "thyroid disorders (hypothyroidism)": {
+        "max_calories": 1600,  # Moderate calorie intake
+        "max_fat": 50,  # Balanced fat intake
+        "max_sugar": 25  # Avoid excess sugar to control weight gain
+    },
+    "liver disease (fatty liver)": {
+        "max_calories": 1500,  # Controlled intake to reduce fat accumulation
+        "max_fat": 40,  # Low-fat diet
+        "max_sugar": 20  # Reduce fructose/sugar to prevent fat buildup
+    },
+    "kidney disease": {
+        "max_calories": 2000,  # Balanced intake
+        "max_fat": 50,  # Moderate fat intake
+        "max_sugar": 30  # Low sugar for blood pressure control
+    },
+    "anemia": {
+        "max_calories": 2200,  # Increased energy intake
+        "max_fat": 60,  # Healthy fats are beneficial
+        "max_sugar": 30  # Normal sugar levels
+    },
+    "osteoporosis": {
+        "max_calories": 2000,  # Normal intake
+        "max_fat": 60,  # Healthy fats for bone health
+        "max_sugar": 30  # Normal sugar intake
+    },
+    "cancer patients (during treatment)": {
+        "max_calories": 2500,  # Increased energy needs
+        "max_fat": 80,  # Healthy fats for energy
+        "max_sugar": 40  # Can be slightly higher for energy
+    }
+}       
         
+        st.markdown('<div class="stCard">', unsafe_allow_html=True)
+        st.subheader("🔍 Current Health condition Based Analysis Results")
+        st.write(f"Selected Condition: {BodyState}")  # Debugging step
+        defl=False
+        if max_intake[BodyState]['max_calories']<calorie_value:
+            diff=calorie_value - max_intake[BodyState]['max_calories'] 
+            st.warning(f"⚠ Your Intake calories is {diff} More than the Maximum suggested calories for {BodyState} : {max_intake[BodyState]['max_calories']}")
+            defl=True
+        if max_intake[BodyState]['max_fat']<fat_value:
+            diff=fat_value - max_intake[BodyState]['max_fat']
+            defl=True
+            st.warning(f"⚠ Your Intake Fat is {diff} More than the Maximum suggested calories for {BodyState} : {max_intake[BodyState]['max_fat'] }")
+        if max_intake[BodyState]['max_sugar']<sugar_value:
+            diff=sugar_value - max_intake[BodyState]['max_sugar']
+            defl=True
+            st.warning(f"⚠ Your Intake Sugar is {diff} More than the Maximum suggested calories for {BodyState} : {max_intake[BodyState]['max_sugar']}")
+        if not defl:
+            st.info("✅ **Bingo-->:** It Seems Your Intake is Not Harmfull for Your Condition.")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
+
 elif option == "🥗 Find Your Diet Plan":
     calorie_difference = st.session_state.calories - st.session_state.predicted_cnt
     if calorie_difference > 0:
