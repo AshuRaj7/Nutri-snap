@@ -9,6 +9,9 @@ from tensorflow.keras.applications import ResNet50
 from tensorflow.keras.applications.resnet50 import preprocess_input as preprocess_input_resnet
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet50 import decode_predictions as decode_predictions_resnet
+import google.generativeai as genai
+import geocoder
+import re
 
 # ✅ Set Page Config
 st.set_page_config(
@@ -206,16 +209,19 @@ st.markdown("""
 
 
 # ✅ Title & Description
-st.markdown('<div class="stCard">', unsafe_allow_html=True)
+# st.markdown('<div class="stCard">', unsafe_allow_html=True)
 st.title("🍴 NutriPlanAI - AI Meal Planner")
 st.subheader("🧠 Smart Meal Planning & Calorie Estimation")
-st.markdown("</div>", unsafe_allow_html=True)
+# st.markdown("</div>", unsafe_allow_html=True)
+genai.configure(api_key="AIzaSyA2GOwEVa2Q62mreWYgteYvXOdYGd1fdzc")  # Replace with your actual Gemini API key
+model = genai.GenerativeModel("gemini-1.5-flash")
+# st.set_page_config(page_title="Smart Diet Recommender", layout="centered")
 
 st.divider()
 
 # ✅ Sidebar for Navigation
 st.sidebar.title("Navigation")
-option = st.sidebar.radio("", ("🏠 Home", "🔍 Find Calories in Meal", "🥗 Find Your Diet Plan"))
+option = st.sidebar.radio("", ("🏠 Home", "🔍 Find Calories in Meal", "🥗 Find Your Diet Plan","📃Plan Your Diet-chart"))
 
 def resize_image(url, width, height):
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -235,18 +241,18 @@ if "calories" not in st.session_state:
 if "predicted_cnt" not in st.session_state:
     st.session_state.predicted_cnt = 0
 if option == "🏠 Home":
-    st.markdown('<div class="stCard">', unsafe_allow_html=True)
+    # st.markdown('<div class="stCard">', unsafe_allow_html=True)
     st.write(
         "Welcome to **NutriPlanAI**, your personal AI-powered nutrition assistant. "
         "Upload your meal image to find calorie estimates, or get a personalized diet plan!"
     )
-    st.markdown("</div>", unsafe_allow_html=True)
+    # st.markdown("</div>", unsafe_allow_html=True)
 
 # ✅ Find Calories in Meal Page
 elif option == "🔍 Find Calories in Meal":
-    st.markdown('<div class="stCard">', unsafe_allow_html=True)
+    # st.markdown('<div class="stCard">', unsafe_allow_html=True)
     
-    st.markdown("</div>", unsafe_allow_html=True)
+    # st.markdown("</div>", unsafe_allow_html=True)
 
     # 🔷 User Details Section
     with st.expander("📝 Enter Your Details", expanded=True):
@@ -610,15 +616,15 @@ elif option == "🔍 Find Calories in Meal":
         st.subheader("🔍 Current Health condition Based Analysis Results")
         st.write(f"Selected Condition: {BodyState}")  # Debugging step
         defl=False
-        if max_intake[BodyState]['max_calories']<calorie_value:
+        if (max_intake[BodyState]['max_calories'])< (calorie_value):
             diff=calorie_value - max_intake[BodyState]['max_calories'] 
             st.warning(f"⚠ Your Intake calories is {diff} More than the Maximum suggested calories for {BodyState} : {max_intake[BodyState]['max_calories']}")
             defl=True
-        if max_intake[BodyState]['max_fat']<fat_value:
+        if (max_intake[BodyState]['max_fat'])<(fat_value):
             diff=fat_value - max_intake[BodyState]['max_fat']
             defl=True
             st.warning(f"⚠ Your Intake Fat is {diff} More than the Maximum suggested calories for {BodyState} : {max_intake[BodyState]['max_fat'] }")
-        if max_intake[BodyState]['max_sugar']<sugar_value:
+        if (max_intake[BodyState]['max_sugar'])<(sugar_value):
             diff=sugar_value - max_intake[BodyState]['max_sugar']
             defl=True
             st.warning(f"⚠ Your Intake Sugar is {diff} More than the Maximum suggested calories for {BodyState} : {max_intake[BodyState]['max_sugar']}")
@@ -672,11 +678,127 @@ elif option == "🥗 Find Your Diet Plan":
             st.write("**Evening:** Avoid high-carb or heavy meals; consider a light salad with some nuts.")
 
         st.info("✅ **Tip:** Increase physical activity to burn excess calories.")
-
     else:
         st.markdown(""" <div class="stSucc"> 
         🎯 Perfect! Your meal intake is well-balanced with your daily needs.
         </div> """,unsafe_allow_html=True)
+elif option=="📃Plan Your Diet-chart":
+    if "page" not in st.session_state:
+        st.session_state.page = "home"
+    def go_to_results():
+        st.session_state.page = "results"
+    def calculate_bmi(weight, height):
+        height_m = height / 100
+        bmi = weight / (height_m ** 2)
+        if bmi < 18.5:
+            category = "Underweight"
+        elif 18.5 <= bmi < 24.9:
+            category = "Normal weight"
+        elif 25 <= bmi < 29.9:
+            category = "Overweight"
+        else:
+            category = "Obese"
+        return round(bmi, 1), category
+    def get_current_location():
+        try:
+            g = geocoder.ip('me')
+            if g.ok and g.city and g.country:
+                return f"{g.city}, {g.country}"
+            elif g.ok and g.country:
+                return g.country
+        except:
+            return None
+    if st.session_state.page == "home":
+        st.markdown("<h1 style='color:#2989ff;'>🥗 Smart Diet Planner</h1>", unsafe_allow_html=True)
+        use_geo = st.toggle("📍 Use my location automatically")
+        if use_geo:
+            detected_location = get_current_location()
+            if detected_location:
+                st.success(f"Detected location: {detected_location}")
+                location = detected_location
+            else:
+                st.warning("Unable to detect location. Please enter manually.")
+                use_geo = False
+        if not use_geo:
+            location = st.text_input("Enter your location (City, State or Country)", placeholder="e.g., Bangalore, India")
+        with st.form("diet_form"):
+            st.subheader("👤 Your Info")
+            name = st.text_input("Name")
+            col1, col2 = st.columns(2)
+            with col1:
+                height = st.number_input("Height (cm)", min_value=50, max_value=250)
+            with col2:
+                weight = st.number_input("Weight (kg)", min_value=20, max_value=200)
+            st.subheader("🍽️ Preferences")
+            season = st.selectbox("Season", ["Summer", "Winter", "Monsoon"])
+            meal_type = st.radio("Meal Type", ["Veg", "Non-Veg", "Vegan"], horizontal=True)
+            diet_type = st.selectbox("Diet Goal", [
+            "Low Calorie", "High Protein", "Vegan", "Diabetic-Friendly", "Keto", "Gluten-Free"])
+            submitted = st.form_submit_button("Get My Diet Chart")
+            if submitted:
+                if not location:
+                    st.error("📍 Please enter or detect a location to continue.")
+                else:
+                    with st.spinner("⏳ Generating your personalized diet chart..."):
+                        bmi, category = calculate_bmi(weight, height)
+                        prompt = f"""
+                        You are a certified nutritionist. Generate a one-day diet chart for a person living in {location} during the {season} season.
+                        Name: {name}, Height: {height} cm, Weight: {weight} kg (BMI: {bmi}, {category})
+                        Preferences: {meal_type} | Goal: {diet_type}
+                        Provide the following sections clearly:
+                        - Breakfast
+                        - Lunch
+                        - Dinner
+                        - Side Dish
+                        - Fruits
+                        - Vegetables
+                        Use local and seasonal foods from {location}. Format the output with clear section headings and avoid using asterisks (*).
+                        """
+                        try:
+                            response = model.generate_content(prompt)
+                            tip_prompt = f"Give one practical tip for someone on a {diet_type.lower()} diet from {location} with BMI {bmi} ({category})."
+                            tip = model.generate_content(tip_prompt).text.strip()
+                            st.session_state.diet_chart = response.text
+                            st.session_state.tip = tip
+                            st.session_state.bmi = bmi
+                            st.session_state.bmi_category = category
+                            st.session_state.name = name
+                            go_to_results()
+                        except Exception as e:
+                            st.error("❌ Error generating content. Please check your API key.")
+                            st.text(f"Error: {e}")
+    elif st.session_state.page == "results":
+        st.markdown("<h1 style='color:#2989ff;'>🧾 Your Personalized Diet Chart</h1>", unsafe_allow_html=True)
+        st.markdown(f"#### 👋 Hello, **{st.session_state.name}**!")
+        st.markdown(f"**🧮 BMI:** `{st.session_state.bmi}` ({st.session_state.bmi_category})")
+        st.markdown("### 🍽️ Diet Chart")
+        chart = st.session_state.diet_chart
+        sections = ["Breakfast", "Lunch", "Dinner", "Side Dish", "Fruits", "Vegetables"]
+        split_chart = {key: "" for key in sections}
+        current_section = None
+        for line in chart.splitlines():
+            line = re.sub(r"[*•]", "", line).strip()  # Remove unwanted symbols
+            for section in sections:
+                if section.lower() in line.lower():
+                    current_section = section
+                    break
+            else:
+                if current_section:
+                    split_chart[current_section] += line + " "
+        for section in sections:
+            if split_chart[section].strip():
+                st.markdown(f"""
+                        <div style="background-color:#f4f9ff;padding:15px 20px;margin-bottom:10px;
+                            border-radius:10px;border-left:5px solid #2989ff;">
+                    <h4 style='color:#2989ff'>{section}</h4>
+                    <p style='color:#333;'>{split_chart[section].strip()}</p>
+                </div>
+            """, unsafe_allow_html=True)
+        st.markdown("### 💡 Daily Tip")
+        st.info(st.session_state.tip)
+    if st.button("🔄 Generate Another"):
+        st.session_state.page = "home"
+
        
 # ✅ Footer
 st.markdown("---")
