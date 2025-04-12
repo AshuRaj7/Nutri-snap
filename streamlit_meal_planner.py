@@ -12,6 +12,8 @@ from tensorflow.keras.applications.resnet50 import decode_predictions as decode_
 import google.generativeai as genai
 import geocoder
 import re
+from dotenv import load_dotenv
+import os
 
 # ✅ Set Page Config
 st.set_page_config(
@@ -213,7 +215,11 @@ st.markdown("""
 st.title("🍴 NutriPlanAI - AI Meal Planner")
 st.subheader("🧠 Smart Meal Planning & Calorie Estimation")
 # st.markdown("</div>", unsafe_allow_html=True)
-genai.configure(api_key="AIzaSyA2GOwEVa2Q62mreWYgteYvXOdYGd1fdzc")  # Replace with your actual Gemini API key
+
+
+load_dotenv()
+api_key = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-1.5-flash")
 # st.set_page_config(page_title="Smart Diet Recommender", layout="centered")
 
